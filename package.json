@@ -1,0 +1,26 @@
+{
+  "name": "frontapi",
+  "version": "1.0.0",
+  "main": "./server.js",
+  "engines": {
+    "node": ">=6"
+  },
+  "scripts": {
+    "start": "node ."
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "fs": "0.0.1-security",
+    "multer": "^1.4.1",
+    "request": "^2.88.0",
+    "watson-developer-cloud": "^4.0.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "license": "UNLICENSED",
+  "description": "frontapi"
+}
