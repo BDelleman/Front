@@ -2,6 +2,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
+<<<<<<< HEAD
 var mongoAPIURL = 'http://mongoapi-thankful-kookaburra.eu-gb.mybluemix.net/post';
 var request = require('request');
 var WatsonClient = require('./WatsonAPI/WatsonCall');
