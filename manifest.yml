@@ -1,4 +1,4 @@
 applications:
 - name: TestFrontAPI
   random-route: true
-  memory: 256M
+  memory: 512M

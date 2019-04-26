@@ -2,14 +2,13 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
-var mongoAPIURL = 'http://mongoapi-bitchiest-pinchbeck.eu-gb.mybluemix.net/post';
+var mongoAPIURL = 'http://mongoapiv2-comedic-gazelle.eu-gb.mybluemix.net/post';
 var request = require('request');
 var WatsonClient = require('./WatsonAPI/WatsonCall');
 var port = process.env.PORT || 3000;
 
 var app = express();
-app.use(bodyParser.urlencoded({ extended: true }))
-
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // SET STORAGE
 var storage = multer.memoryStorage();
@@ -22,25 +21,36 @@ app.get('/', function (req, res) {
 
 app.post('/upload/photo', upload.single('myImage'), (req, res) => {
     var file = req.file.buffer;
-    Response = new Object;
+    Watsonresponse = new Object;
+    console.log(Watsonresponse);
     Result = new Object;
 
     WatsonClient(file);
 
     res.setTimeout(3000, function () {
-        console.log(Response);
-        request.post({
-            "headers": { "content-type": "application/json" },
-            "url": mongoAPIURL,
-            "body": Response
-        }, (error, response, body) => {
-            if (error) {
-                return console.dir(error);
-            }
-            console.log(body)
-            res.send(body);
-        });
+        console.log("to mongo " + Watsonresponse);
+        if (Watsonresponse === undefined) {
+            res.send("Image is not recognized")
+        } else if (Watsonresponse === {}){
+            res.send("Image is not recognized")
+        } else {
+            request.post({
+                "headers": { "content-type": "application/json" },
+                "url": mongoAPIURL,
+                "body": Watsonresponse
+            }, (error, response, body) => {
+                if (error) {
+                    return console.dir(error);
+                }
+                Result = JSON.parse(body);
+                viewVariable1 = "Class = " + Result.Image.class + '</br>';
+                viewVariable2 = "Score = " + Result.Image.score + '</br>';
+                viewVariable3 = "Count = " + Result.Count;
+                res.send(viewVariable1 + viewVariable2 + viewVariable3);
+            });
+        }
     });
+
 });
 
 
