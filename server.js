@@ -2,7 +2,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
-var mongoAPIURL = 'http://mongoapi-bitchiest-pinchbeck.eu-gb.mybluemix.net/post';
+var mongoAPIURL = 'http://mongoapi-thankful-kookaburra.eu-gb.mybluemix.net/post';
 var request = require('request');
 var WatsonClient = require('./WatsonAPI/WatsonCall');
 var port = process.env.PORT || 3000;
