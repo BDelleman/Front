@@ -6,15 +6,16 @@ var cfenv = require("cfenv"); // nodig bij pushen naar cloud, voor vullen mongoA
 // var mongoAPIURL = 'http://mongoapi-thankful-kookaburra.eu-gb.mybluemix.net/post'; //for local use
 var request = require('request');
 var WatsonClient = require('./WatsonAPI/WatsonCall');
-var port = process.env.PORT || 3000;
+
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true, type: "application/json" }));
 
 var appEnv = cfenv.getAppEnv();
+console.log(appEnv);
 
 mongoAPIURL = appEnv.getServiceURL("Mongo-API");
-
+var port = process.env.PORT || 3000;
 
 
 // SET STORAGE
