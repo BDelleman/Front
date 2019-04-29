@@ -2,19 +2,19 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
-var cfenv = require("cfenv"); // nodig bij pushen naar cloud, voor vullen mongoAPIURL
-// var mongoAPIURL = 'http://mongoapi-thankful-kookaburra.eu-gb.mybluemix.net/post'; //for local use
+//var cfenv = require("cfenv"); // nodig bij pushen naar cloud, voor vullen mongoAPIURL
+var mongoAPIURL = 'http://mongoapi-thankful-kookaburra.eu-gb.mybluemix.net/post'; //for local use
 var request = require('request');
 var WatsonClient = require('./WatsonAPI/WatsonCall');
 
 
-var app = express();
+//var app = express();
 app.use(bodyParser.urlencoded({ extended: true, type: "application/json" }));
 
-var appEnv = cfenv.getAppEnv();
-console.log(appEnv);
+//var appEnv = cfenv.getAppEnv();
+//console.log(appEnv);
 
-mongoAPIURL = appEnv.getServiceURL("Mongo-API");
+//mongoAPIURL = appEnv.getServiceURL("Mongo-API");
 var port = process.env.PORT || 3000;
 
 
@@ -37,8 +37,8 @@ app.post('/upload/photo', upload.single('myImage'), (req, res) => {
     WatsonClient(file);
 
     res.setTimeout(5000, function () {
-        console.log("service Mongo-API " + appEnv.getService("Mongo-API"));
-        console.log("get all services " + appEnv.getServices());
+        //console.log("service Mongo-API " + appEnv.getService("Mongo-API"));
+        //console.log("get all services " + appEnv.getServices());
         console.log("to mongo " + Watsonresponse);
         if (fileSize >= 10) {
             res.send("Size of image is too large")
