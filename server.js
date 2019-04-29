@@ -8,7 +8,7 @@ var request = require('request');
 var WatsonClient = require('./WatsonAPI/WatsonCall');
 
 
-//var app = express();
+var app = express();
 app.use(bodyParser.urlencoded({ extended: true, type: "application/json" }));
 
 //var appEnv = cfenv.getAppEnv();
