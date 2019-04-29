@@ -2,13 +2,19 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
-var mongoAPIURL = 'http://mongoapiv2-comedic-gazelle.eu-gb.mybluemix.net/post';
+var cfenv = require("cfenv"); // nodig bij pushen naar cloud, voor vullen mongoAPIURL
+// var mongoAPIURL = 'http://mongoapi-thankful-kookaburra.eu-gb.mybluemix.net/post'; //for local use
 var request = require('request');
 var WatsonClient = require('./WatsonAPI/WatsonCall');
 var port = process.env.PORT || 3000;
 
 var app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true, type: "application/json" }));
+
+var appEnv = cfenv.getAppEnv();
+
+mongoAPIURL = appEnv.getServiceURL(Mongo-API);
+console.log(mongoAPIURL);
 
 // SET STORAGE
 var storage = multer.memoryStorage();
@@ -21,17 +27,19 @@ app.get('/', function (req, res) {
 
 app.post('/upload/photo', upload.single('myImage'), (req, res) => {
     var file = req.file.buffer;
-    Watsonresponse = new Object;
-    console.log(Watsonresponse);
+    var fileSize = req.file.size / 1024 / 1024;
+    Watsonresponse = undefined;
     Result = new Object;
+    
 
     WatsonClient(file);
 
-    res.setTimeout(3000, function () {
+    res.setTimeout(5000, function () {
         console.log("to mongo " + Watsonresponse);
-        if (Watsonresponse === undefined) {
-            res.send("Image is not recognized")
-        } else if (Watsonresponse === {}){
+        if (fileSize >= 10) {
+            res.send("Size of image is too large")
+        }    
+        else if (Watsonresponse === undefined) {
             res.send("Image is not recognized")
         } else {
             request.post({
@@ -52,6 +60,5 @@ app.post('/upload/photo', upload.single('myImage'), (req, res) => {
     });
 
 });
-
 
 app.listen(port, () => console.log(('Server started on port %d'), port));
