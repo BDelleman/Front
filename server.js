@@ -11,8 +11,8 @@ var WatsonClient = require('./WatsonAPI/WatsonCall');
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true, type: "application/json" }));
 
-//var appEnv = cfenv.getAppEnv();
-//console.log(appEnv);
+var appEnv = cfenv.getAppEnv();
+console.log("logging environment"+appEnv);
 
 //mongoAPIURL = appEnv.getServiceURL("Mongo-API-{timestamp}");
 var port = process.env.PORT || 3000;
