@@ -2,7 +2,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
-//var cfenv = require("cfenv"); // nodig bij pushen naar cloud, voor vullen mongoAPIURL
+var cfenv = require("cfenv"); // nodig bij pushen naar cloud, voor vullen mongoAPIURL
 var mongoAPIURL = 'https://sad-tiger.eu-gb.mybluemix.net/post'; //for local use
 var request = require('request');
 var WatsonClient = require('./WatsonAPI/WatsonCall');
