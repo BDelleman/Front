@@ -36,8 +36,8 @@ app.post('/upload/photo', upload.single('myImage'), (req, res) => {
     WatsonClient(file);
 
     res.setTimeout(5000, function () {
-        console.log("service Mongo-API " + appEnv.getService("Mongo-API"));
-        console.log("get all services " + appEnv.getServices());
+        //console.log("service Mongo-API " + appEnv.getService("Mongo-API"));
+        //console.log("get all services " + appEnv.getServices());
         console.log("to mongo " + Watsonresponse);
         if (fileSize >= 10) {
             res.send("Size of image is too large")
