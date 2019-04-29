@@ -2,20 +2,21 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
-var cfenv = require("cfenv"); // nodig bij pushen naar cloud, voor vullen mongoAPIURL
-var mongoAPIURL = 'http://mongoapi-thankful-kookaburra.eu-gb.mybluemix.net/post'; //for local use
+//var cfenv = require("cfenv"); // nodig bij pushen naar cloud, voor vullen mongoAPIURL
+var mongoAPIURL = 'https://sad-tiger.eu-gb.mybluemix.net/post'; //for local use
 var request = require('request');
 var WatsonClient = require('./WatsonAPI/WatsonCall');
 
 
-var app = express();
+//var app = express();
 app.use(bodyParser.urlencoded({ extended: true, type: "application/json" }));
 
-var appEnv = cfenv.getAppEnv();
-console.log(JSON.parse(process.env.VCAP_SERVICES));
+//var appEnv = cfenv.getAppEnv();
+//console.log(appEnv);
 
-// mongoAPIURL = appEnv.getServiceURL("Mongo-API");
+//mongoAPIURL = appEnv.getServiceURL("Mongo-API-{timestamp}");
 var port = process.env.PORT || 3000;
+
 
 // SET STORAGE
 var storage = multer.memoryStorage();
