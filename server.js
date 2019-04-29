@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true, type: "application/json" }));
 
 var appEnv = cfenv.getAppEnv();
 
-mongoAPIURL = appEnv.getServiceURL(Mongo-API);
+mongoAPIURL = appEnv.getServiceURL("Mongo-API");
 console.log(mongoAPIURL);
 
 // SET STORAGE
