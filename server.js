@@ -14,7 +14,8 @@ app.use(bodyParser.urlencoded({ extended: true, type: "application/json" }));
 var appEnv = cfenv.getAppEnv();
 
 mongoAPIURL = appEnv.getServiceURL("Mongo-API");
-console.log(mongoAPIURL);
+
+
 
 // SET STORAGE
 var storage = multer.memoryStorage();
@@ -35,6 +36,8 @@ app.post('/upload/photo', upload.single('myImage'), (req, res) => {
     WatsonClient(file);
 
     res.setTimeout(5000, function () {
+        console.log("service Mongo-API " + appEnv.getService("Mongo-API"));
+        console.log("get all services " + appEnv.getServices());
         console.log("to mongo " + Watsonresponse);
         if (fileSize >= 10) {
             res.send("Size of image is too large")
