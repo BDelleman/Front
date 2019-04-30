@@ -68,6 +68,6 @@ app.post('/upload/photo', upload.single('myImage'), (req, res) => {
 });
 
 var appEnv = cfenv.getAppEnv();
-console.log("logging environment"+ appEnv);
+console.log("logging environment"+ JSON.stringify(appEnv));
 
 app.listen(port, () => console.log(('Server started on port %d'), port));
