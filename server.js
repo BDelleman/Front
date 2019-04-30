@@ -18,10 +18,10 @@ console.log("logging environment"+ appEnv);
 
 // mongoAPIURL = appEnv.getServiceURL(Mongo-API);
 // console.log(mongoAPIURL);
-mongoAPIURL = appEnv.getServiceURL("Mongo-API-watson-" + process.env.VCAP_APPLICATION.state_timestamp);
-console.log("regel20",mongoAPIURL);
-console.log("what is deze",process.env.VCAP_APPLICATION)
-console.log("what is deze dan ",env.VCAP_APPLICATION)
+// mongoAPIURL = appEnv.getServiceURL("Mongo-API-watson-" + process.env.VCAP_APPLICATION.state_timestamp);
+// console.log("regel20",mongoAPIURL);
+// console.log("what is deze",process.env.VCAP_APPLICATION)
+// console.log("what is deze dan ",env.VCAP_APPLICATION)
 
 // SET STORAGE
 var storage = multer.memoryStorage();
