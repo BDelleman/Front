@@ -63,7 +63,7 @@ app.post('/upload/photo', upload.single('myImage'), (req, res) => {
 });
 
 var appEnv = cfenv.getAppEnv(); //build URL after being assigned a Route
-const Mongo = "'https://Mongo-API-watson-";
+const Mongo = "https://Mongo-API-watson-";
 const Domein = ".eu-gb.mybluemix.net";
 const path = "/post";
 var Toolchain = appEnv.app.application_name.split("-")[2];
