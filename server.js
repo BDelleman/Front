@@ -6,16 +6,18 @@ var cfenv = require("cfenv"); // nodig bij pushen naar cloud, voor vullen mongoA
 var mongoAPIURL = 'https://sad-tiger.eu-gb.mybluemix.net/post'; //for local use
 var request = require('request');
 var WatsonClient = require('./WatsonAPI/WatsonCall');
-
+var ejs = require("ejs");
+var port = process.env.PORT || 3000;
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true, type: "application/json" }));
+app.set('view engine', 'ejs');
 
 var appEnv = cfenv.getAppEnv();
 console.log("logging environment"+ appEnv);
 
-//mongoAPIURL = appEnv.getServiceURL("Mongo-API-{timestamp}");
-var port = process.env.PORT || 3000;
+// mongoAPIURL = appEnv.getServiceURL(Mongo-API);
+// console.log(mongoAPIURL);
 
 
 // SET STORAGE
@@ -37,14 +39,14 @@ app.post('/upload/photo', upload.single('myImage'), (req, res) => {
     WatsonClient(file);
 
     res.setTimeout(5000, function () {
-        //console.log("service Mongo-API " + appEnv.getService("Mongo-API"));
-        //console.log("get all services " + appEnv.getServices());
         console.log("to mongo " + Watsonresponse);
         if (fileSize >= 10) {
-            res.send("Size of image is too large")
+            res.render('error1')
+            res.end();
         }    
         else if (Watsonresponse === undefined) {
-            res.send("Image is not recognized")
+            res.render('error2')
+            res.end();
         } else {
             request.post({
                 "headers": { "content-type": "application/json" },
@@ -55,10 +57,10 @@ app.post('/upload/photo', upload.single('myImage'), (req, res) => {
                     return console.dir(error);
                 }
                 Result = JSON.parse(body);
-                viewVariable1 = "Class = " + Result.Image.class + '</br>';
-                viewVariable2 = "Score = " + Result.Image.score + '</br>';
-                viewVariable3 = "Count = " + Result.Count;
-                res.send(viewVariable1 + viewVariable2 + viewVariable3);
+                viewVariable1 = Result.Image.class;
+                viewVariable2 = Result.Image.score;
+                viewVariable3 = Result.Count;
+                res.render('result', {Class: viewVariable1, Score: viewVariable2, Count: viewVariable3});
             });
         }
     });
