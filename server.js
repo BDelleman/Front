@@ -6,20 +6,20 @@ var cfenv = require("cfenv"); // nodig bij pushen naar cloud, voor vullen mongoA
 var request = require('request');
 var WatsonClient = require('./WatsonAPI/WatsonCall');
 var ejs = require("ejs");
+
+//Set global variables
 var port = process.env.PORT || 3000;
+var mongoAPIURL = 'https://sad-tiger.eu-gb.mybluemix.net/post'; //for local use
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true, type: "application/json" }));
 app.set('view engine', 'ejs');
 
-var appEnv = cfenv.getAppEnv();
-console.log("logging environment"+ appEnv);
-
 // SET STORAGE
 var storage = multer.memoryStorage();
 var upload = multer({ storage: storage });
 
-//ROUTES WILL GO HERE
+//Define routes
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/index.html');
 });
@@ -30,7 +30,6 @@ app.post('/upload/photo', upload.single('myImage'), (req, res) => {
     Watsonresponse = undefined;
     Result = new Object;
     
-
     WatsonClient(file);
 
     res.setTimeout(5000, function () {
