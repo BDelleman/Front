@@ -20,7 +20,8 @@ console.log("logging environment"+ appEnv);
 // console.log(mongoAPIURL);
 mongoAPIURL = appEnv.getServiceURL("Mongo-API-watson-" + process.env.VCAP_APPLICATION.state_timestamp);
 console.log("regel20",mongoAPIURL);
-console.log("what is deze",process.env)
+console.log("what is deze",process.env.VCAP_APPLICATION)
+console.log("what is deze dan ",env.VCAP_APPLICATION)
 
 // SET STORAGE
 var storage = multer.memoryStorage();
@@ -70,6 +71,10 @@ app.post('/upload/photo', upload.single('myImage'), (req, res) => {
 });
 
 var appEnv = cfenv.getAppEnv();
-console.log("logging environment"+ JSON.stringify(appEnv));
+Mongo = "Mongo-API-watson-";
+
+var appEnv = {"app":{"application_id":"3f2b94e9-8eb0-4395-af84-40a7222cfa47","application_name":"front-watson-20190430080246042","application_uris":["front-watson-20190430080246042-zany-chipmunk.eu-gb.mybluemix.net"],"application_version":"f27890d3-af24-4f45-acbb-5f76e8cb1cc3","cf_api":"https://api.eu-gb.cf.cloud.ibm.com","host":"0.0.0.0","instance_id":"2567fdf5-df1e-4539-5a5b-fe0a","instance_index":0,"limits":{"disk":1024,"fds":16384,"mem":512},"name":"front-watson-20190430080246042","port":8080,"space_id":"e4c248cb-e9e9-445c-bfd7-b801aa5b17df","space_name":"dev","uris":["front-watson-20190430080246042-zany-chipmunk.eu-gb.mybluemix.net"],"version":"f27890d3-af24-4f45-acbb-5f76e8cb1cc3"},"services":{},"isLocal":false,"name":"front-watson-20190430080246042","port":8080,"bind":"0.0.0.0","urls":["https://front-watson-20190430080246042-zany-chipmunk.eu-gb.mybluemix.net"],"url":"https://front-watson-20190430080246042-zany-chipmunk.eu-gb.mybluemix.net"};
+console.log(appEnv.app.application_name)
+console.log(Mongo.concat(appEnv.app.application_name.split("-")[2]));
 
 app.listen(port, () => console.log(('Server started on port %d'), port));
