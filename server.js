@@ -12,7 +12,7 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: true, type: "application/json" }));
 
 var appEnv = cfenv.getAppEnv();
-console.log("logging environment"+appEnv);
+console.log("logging environment"+ appEnv);
 
 //mongoAPIURL = appEnv.getServiceURL("Mongo-API-{timestamp}");
 var port = process.env.PORT || 3000;
@@ -64,5 +64,8 @@ app.post('/upload/photo', upload.single('myImage'), (req, res) => {
     });
 
 });
+
+var appEnv = cfenv.getAppEnv();
+console.log("logging environment"+ appEnv);
 
 app.listen(port, () => console.log(('Server started on port %d'), port));
