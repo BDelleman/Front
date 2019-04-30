@@ -3,7 +3,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
 var cfenv = require("cfenv"); // nodig bij pushen naar cloud, voor vullen mongoAPIURL
-var mongoAPIURL = 'https://sad-tiger.eu-gb.mybluemix.net/post'; //for local use
 var request = require('request');
 var WatsonClient = require('./WatsonAPI/WatsonCall');
 var ejs = require("ejs");
@@ -15,13 +14,6 @@ app.set('view engine', 'ejs');
 
 var appEnv = cfenv.getAppEnv();
 console.log("logging environment"+ appEnv);
-
-// mongoAPIURL = appEnv.getServiceURL(Mongo-API);
-// console.log(mongoAPIURL);
-// mongoAPIURL = appEnv.getServiceURL("Mongo-API-watson-" + process.env.VCAP_APPLICATION.state_timestamp);
-// console.log("regel20",mongoAPIURL);
-// console.log("what is deze",process.env.VCAP_APPLICATION)
-// console.log("what is deze dan ",env.VCAP_APPLICATION)
 
 // SET STORAGE
 var storage = multer.memoryStorage();
@@ -70,9 +62,10 @@ app.post('/upload/photo', upload.single('myImage'), (req, res) => {
 
 });
 
-var appEnv = cfenv.getAppEnv();
-Mongo = "Mongo-API-watson-";
-
-console.log(Mongo.concat(appEnv.app.application_name.split("-")[2]));
+var appEnv = cfenv.getAppEnv(); //build URL after being assigned a Route.
+const Mongo = "'https://Mongo-API-watson-";
+const Domein = ".eu-gb.mybluemix.net";
+var Toolchain = appEnv.app.application_name.split("-")[2];
+var mongoAPIURL = Mongo.concat(Toolchain,Domein);
 
 app.listen(port, () => console.log(('Server started on port %d'), port));
