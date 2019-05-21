@@ -65,7 +65,13 @@ var appEnv = cfenv.getAppEnv(); //build URL after being assigned a Route
 const Mongo = "https://Mongo-API-watson-";
 const Domein = ".eu-gb.mybluemix.net";
 const path = "/post";
-var Toolchain = appEnv.app.application_name.split("-")[1];
-var mongoAPIURL = Mongo.concat(Toolchain,Domein,path);
+var Toolchain = appEnv.app.application_name.split("-")[2];
+if(Toolchain == undefined){
+    var mongoAPIURL = Mongo.concat(Domein,path);
+}else{
+        var mongoAPIURL = Mongo.concat(Toolchain,Domein,path);
+    }
+
+
 
 app.listen(port, () => console.log(('Server started on port %d'), port));
