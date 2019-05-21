@@ -1,5 +1,5 @@
 applications:
-- name: TestFrontAPI
+- name: Front
   random-route: true
-  buildpack: sdk-for-nodejs
+  buildpacks: sdk-for-nodejs
   memory: 512M
