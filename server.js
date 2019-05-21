@@ -2,7 +2,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
-var cfenv = require("cfenv"); // nodig bij pushen naar cloud, voor vullen mongoAPIURL
+var cfenv = require('cfenv'); // nodig bij pushen naar cloud, voor vullen mongoAPIURL
 var request = require('request');
 var WatsonClient = require('./WatsonAPI/WatsonCall');
 var ejs = require("ejs");
@@ -68,10 +68,11 @@ const path = "/post";
 var Toolchain = appEnv.app.application_name.split("-")[2];
 if(Toolchain == undefined){
     var mongoAPIURL = Mongo.concat(Domein,path);
+    console.log('undefined' + mongoAPIURL)
 }else{
+    
         var mongoAPIURL = Mongo.concat(Toolchain,Domein,path);
+        console.log('not undefined' + mongoAPIURL)
     }
-
-
 
 app.listen(port, () => console.log(('Server started on port %d'), port));
