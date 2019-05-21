@@ -9,7 +9,6 @@ var ejs = require("ejs");
 
 //Set global variables
 var port = process.env.PORT || 3000;
-var mongoAPIURL = 'https://sad-tiger.eu-gb.mybluemix.net/post'; //for local use
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true, type: "application/json" }));
