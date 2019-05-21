@@ -1,5 +1,4 @@
 applications:
 - name: Front
   random-route: true
-  buildpacks: sdk-for-nodejs_v3_26-20190313-1440
   memory: 512M
