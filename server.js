@@ -78,9 +78,9 @@ const path = "/post";
 var Toolchainname = appEnv.app.application_name.split("-")[1];
 var Toolchaintype = appEnv.app.application_name.split("-")[2]; // selfreferences Mongo API
 
-if (Toolchain == undefined) {
+if (Toolchaintype == undefined) {
 
-    var mongoAPIURL = Mongo.concat(Domein, path, Toolchainname);
+    var mongoAPIURL = Mongo.concat(Toolchainname, Domein, path);
 } else {
     var mongoAPIURL = Mongo.concat(Toolchainname, "-", Toolchaintype, Domein, path);
 }
