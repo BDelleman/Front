@@ -11,12 +11,17 @@ var ejs = require("ejs");
 var port = process.env.PORT || 3000;
 
 var app = express();
-app.use(bodyParser.urlencoded({ extended: true, type: "application/json" }));
+app.use(bodyParser.urlencoded({
+    extended: true,
+    type: "application/json"
+}));
 app.set('view engine', 'ejs');
 
 // SET STORAGE
 var storage = multer.memoryStorage();
-var upload = multer({ storage: storage });
+var upload = multer({
+    storage: storage
+});
 
 //Define routes
 app.get('/', function (req, res) {
@@ -28,7 +33,7 @@ app.post('/upload/photo', upload.single('myImage'), (req, res) => {
     var fileSize = req.file.size / 1024 / 1024;
     Watsonresponse = undefined;
     Result = new Object;
-    
+
     WatsonClient(file);
 
     res.setTimeout(5000, function () {
@@ -36,13 +41,14 @@ app.post('/upload/photo', upload.single('myImage'), (req, res) => {
         if (fileSize >= 10) {
             res.render('error1')
             res.end();
-        }    
-        else if (Watsonresponse === undefined) {
+        } else if (Watsonresponse === undefined) {
             res.render('error2')
             res.end();
         } else {
             request.post({
-                "headers": { "content-type": "application/json" },
+                "headers": {
+                    "content-type": "application/json"
+                },
                 "url": mongoAPIURL,
                 "body": Watsonresponse
             }, (error, response, body) => {
@@ -54,7 +60,11 @@ app.post('/upload/photo', upload.single('myImage'), (req, res) => {
                 viewVariable1 = Result.Image.class;
                 viewVariable2 = Result.Image.score;
                 viewVariable3 = Result.Count;
-                res.render('result', {Class: viewVariable1, Score: viewVariable2, Count: viewVariable3});
+                res.render('result', {
+                    Class: viewVariable1,
+                    Score: viewVariable2,
+                    Count: viewVariable3
+                });
             });
         }
     });
@@ -62,20 +72,17 @@ app.post('/upload/photo', upload.single('myImage'), (req, res) => {
 });
 
 var appEnv = cfenv.getAppEnv(); //build URL after being assigned a Route
-const Mongo = "https://Mongo-API-watson-";
+const Mongo = "https://Mongo-API-";
 const Domein = ".eu-gb.mybluemix.net";
 const path = "/post";
-var Toolchain = appEnv.app.application_name.split("-")[2];
+var Toolchainname = appEnv.app.application_name.split("-")[1];
+var Toolchaintype = appEnv.app.application_name.split("-")[2]; // selfreferences Mongo API
 
-if(Toolchain == undefined){
+if (Toolchain == undefined) {
 
-    var mongoAPIURL = Mongo.concat(Domein,path);
-    console.log('API TOOLCHAIN undefined Defaulting to ' + mongoAPIURL)
-
-}else{
-    
-        var mongoAPIURL = Mongo.concat(Toolchain,Domein,path);
-        console.log('api not undefined' + mongoAPIURL)
-    }
+    var mongoAPIURL = Mongo.concat(Domein, path, Toolchainname);
+} else {
+    var mongoAPIURL = Mongo.concat(Toolchainname, "-", Toolchaintype, Domein, path);
+}
 
 app.listen(port, () => console.log(('Server started on port %d'), port));
