@@ -68,12 +68,14 @@ const path = "/post";
 var Toolchain = appEnv.app.application_name.split("-")[2];
 
 if(Toolchain == undefined){
+
     var mongoAPIURL = Mongo.concat(Domein,path);
-    console.log('undefined' + mongoAPIURL)
+    console.log('API TOOLCHAIN undefined Defaulting to ' + mongoAPIURL)
+
 }else{
     
         var mongoAPIURL = Mongo.concat(Toolchain,Domein,path);
-        console.log('not undefined' + mongoAPIURL)
+        console.log('api not undefined' + mongoAPIURL)
     }
 
 app.listen(port, () => console.log(('Server started on port %d'), port));
